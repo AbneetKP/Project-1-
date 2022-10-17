@@ -1,0 +1,13 @@
+{
+  "name": "spooky_spaces",
+  "version": "0.1.0",
+  "description": "spooky_halloween_board_game",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
+}
