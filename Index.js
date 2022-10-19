@@ -1,7 +1,6 @@
 import rl from "readline-sync";
 import { roll } from "./dice.js";
 
-
 let player1Candy = 0;
 let player1HouseSpace = 0;
 
@@ -15,7 +14,6 @@ Prepare yourselves for the a fright full night indeed!`);
 console.log(`Alright let me explain the board, there is 50 total houses on the board
 and each house will give you a candy where ever you land, careful though some houses are
 not so friendly and there is a special house space that gives out full size bars!`);
-
 
 roll();
 
