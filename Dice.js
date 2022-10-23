@@ -11,6 +11,8 @@ let player2Candy = 1;
 let player3Candy = 1;
 let player4Candy = 1;
 
+export let winner = "";
+
 let board = [
   0, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1,
   1, 1, -1, 1, 1, 1, 10, 1, 1, -1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, -1,
@@ -30,7 +32,7 @@ function getBadHouse() {
 function getHouse() {
   const house = [
     "Happy Halloween! Here's your candy!",
-    "...lights are off and you a sign take one candy",
+    "...lights are off and you see a sign take one candy",
     "Happy Halloween! What a wonderful costume you have!",
   ];
   const response = house.length;
@@ -41,7 +43,7 @@ function getHouse() {
 function getLuckyHouse() {
   const luckyHouse = [
     "Happy Halloween! Here's a nice handful for you!",
-    "...lights are off and you a sign take one candy, you ignore the sign",
+    "...lights are off and you see a sign take one candy, you ignore the sign",
     "Happy Halloween! What a wonderful costume you have, have some extra candy!",
   ];
   const response = luckyHouse.length;
@@ -115,70 +117,105 @@ function getCandyP4() {
     console.log(getHouse());
   }
 }
-function checkRequirement() {}
-export function roll() {
-  while (
-    player1HouseSpace > 50 &&
-    player1Candy > 15 &&
-    player2HouseSpace > 50 &&
-    player2Candy > 15 &&
-    player3HouseSpace > 50 &&
-    player3Candy > 15 &&
-    player4HouseSpace > 50 &&
-    player4Candy > 15
-  ) {
-    let diceRoll6 = getDiceRoll6();
+function doPlayer1() {
+  let diceRoll6 = getDiceRoll6();
 
-    rl.question(`${player1Name}'s TURN! Roll! (PRESS ENTER) `);
-    console.log("\n");
-    console.log(`You rolled a ${diceRoll6}`);
+  rl.question(`${player1Name}'s TURN! Roll! (PRESS ENTER) `);
+  console.log("\n");
+  console.log(`You rolled a ${diceRoll6}`);
 
-    updateP1HouseSpace(diceRoll6);
-    console.log(`You're at house ${player1HouseSpace}`);
+  updateP1HouseSpace(diceRoll6);
+  console.log(`You're at house ${player1HouseSpace}`);
 
-    getCandyP1();
-    console.log(`You have ${player1Candy} candy total!`);
-    console.log("\n");
-    //BREAK Player 2
-    diceRoll6 = getDiceRoll6();
-
-    rl.question(`${player2Name}'s TURN! Roll! (PRESS ENTER) `);
-    console.log("\n");
-    console.log(`You rolled a ${diceRoll6}`);
-
-    updateP2HouseSpace(diceRoll6);
-    console.log(`You're at house ${player2HouseSpace}`);
-
-    getCandyP2();
-    console.log(`You have ${player2Candy} candy total!`);
-    console.log("\n");
-    //BREAK PLayer 3
-    diceRoll6 = getDiceRoll6();
-
-    rl.question(`${player3Name}'s TURN! Roll! (PRESS ENTER) `);
-    console.log("\n");
-    console.log(`You rolled a ${diceRoll6}`);
-
-    updateP3HouseSpace(diceRoll6);
-    console.log(`You're at house ${player3HouseSpace}`);
-
-    getCandyP3();
-    console.log(`You have ${player3Candy} candy total!`);
-    console.log("\n");
-    //BREAK PLAYER 4
-    diceRoll6 = getDiceRoll6();
-
-    rl.question(`${player4Name}'s TURN! Roll! (PRESS ENTER) `);
-    console.log("\n");
-    console.log(`You rolled a ${diceRoll6}`);
-
-    updateP4HouseSpace(diceRoll6);
-    console.log(`You're at house ${player4HouseSpace}`);
-
-    getCandyP4();
-    console.log(`You have ${player4Candy} candy total!`);
-    console.log("\n");
-  }
+  getCandyP1();
+  console.log(`You have ${player1Candy} candy total!`);
+  console.log("\n");
 }
 
-roll();
+function doPlayer2() {
+  let diceRoll6 = getDiceRoll6();
+
+  rl.question(`${player2Name}'s TURN! Roll! (PRESS ENTER) `);
+  console.log("\n");
+  console.log(`You rolled a ${diceRoll6}`);
+
+  updateP2HouseSpace(diceRoll6);
+  console.log(`You're at house ${player2HouseSpace}`);
+
+  getCandyP2();
+  console.log(`You have ${player2Candy} candy total!`);
+  console.log("\n");
+}
+
+function doPlayer3() {
+  let diceRoll6 = getDiceRoll6();
+
+  rl.question(`${player3Name}'s TURN! Roll! (PRESS ENTER) `);
+  console.log("\n");
+  console.log(`You rolled a ${diceRoll6}`);
+
+  updateP3HouseSpace(diceRoll6);
+  console.log(`You're at house ${player3HouseSpace}`);
+
+  getCandyP3();
+  console.log(`You have ${player3Candy} candy total!`);
+  console.log("\n");
+}
+function doPlayer4() {
+  let diceRoll6 = getDiceRoll6();
+
+  rl.question(`${player4Name}'s TURN! Roll! (PRESS ENTER) `);
+  console.log("\n");
+  console.log(`You rolled a ${diceRoll6}`);
+
+  updateP4HouseSpace(diceRoll6);
+  console.log(`You're at house ${player4HouseSpace}`);
+
+  getCandyP4();
+  console.log(`You have ${player4Candy} candy total!`);
+  console.log("\n");
+}
+export function roll() {
+  while (true) {
+    doPlayer1();
+    if (player1HouseSpace >= 50 && player1Candy >= 15) {
+      winner = player1Name;
+      break;
+    } else if (player1HouseSpace >= 50 && player1Candy < 15) {
+      player1HouseSpace = 0;
+      console.log(
+        "looks like you didn't get enough candy, onto the next neighborhood!"
+      );
+    }
+    doPlayer2();
+    if (player2HouseSpace >= 50 && player2Candy >= 15) {
+      winner = player2Name;
+      break;
+    } else if (player2HouseSpace >= 50 && player2Candy < 15) {
+      player2HouseSpace = 0;
+      console.log(
+        "looks like you didn't get enough candy, onto the next neighborhood!"
+      );
+    }
+    doPlayer3();
+    if (player3HouseSpace >= 50 && player3Candy >= 15) {
+      winner = player3Name;
+      break;
+    } else if (player3HouseSpace >= 50 && player3Candy < 15) {
+      player3HouseSpace = 0;
+      console.log(
+        "looks like you didn't get enough candy, onto the next neighborhood!"
+      );
+    }
+    doPlayer4();
+    if (player4HouseSpace >= 50 && player4Candy >= 15) {
+      winner = player4Name;
+      break;
+    } else if (player4HouseSpace >= 50 && player4Candy < 15) {
+      player4HouseSpace = 0;
+      console.log(
+        "looks like you didn't get enough candy, onto the next neighborhood!"
+      );
+    }
+  }
+}

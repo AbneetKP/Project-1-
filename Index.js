@@ -1,11 +1,11 @@
 import rl from "readline-sync";
-import { roll } from "./dice.js";
 import {
   welcome,
   greetPlayers,
   giveRulesAndExplainBoard,
   announceWinner,
 } from "./dialogue.js";
+import { roll } from "./dice.js";
 
 welcome();
 console.log("\n");
