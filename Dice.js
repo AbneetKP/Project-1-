@@ -1,4 +1,5 @@
 import rl from "readline-sync";
+import chalk from "chalk";
 import { player1Name, player2Name, player3Name, player4Name } from "./index.js";
 
 let player1HouseSpace = 0;
@@ -17,7 +18,14 @@ let board = [
   0, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1,
   1, 1, -1, 1, 1, 1, 10, 1, 1, -1, 1, 1, 1, 1, 1, 1, -1, 1, 1, 1, 1, 1, 1, -1,
   1, 1, 0, 0, 0, 0, 0, 0,
-];
+]; //moved to server
+export function getDiceRoll6() {
+  const dice6 = [1, 2, 3, 4, 5, 6];
+  const numDicesides = dice6.length;
+  const randomIndex = Math.floor(Math.random() * numDicesides);
+  return dice6[randomIndex];
+}
+
 function getBadHouse() {
   const badHouse = [
     "Get of lawn you whippersnappers!",
@@ -51,13 +59,6 @@ function getLuckyHouse() {
   return luckyHouse[randomIndex];
 }
 
-function getDiceRoll6() {
-  const dice6 = [1, 2, 3, 4, 5, 6];
-  const numDicesides = dice6.length;
-  const randomIndex = Math.floor(Math.random() * numDicesides);
-  return dice6[randomIndex];
-}
-
 function updateP1HouseSpace(diceRoll6) {
   player1HouseSpace = player1HouseSpace + diceRoll6;
 }
@@ -76,10 +77,10 @@ function updateP4HouseSpace(diceRoll6) {
 
 function getCandyP1() {
   player1Candy = player1Candy + board[player1HouseSpace];
-  if (board[player1HouseSpace] !== 1) {
-    console.log(getBadHouse());
-  } else if (board[player1HouseSpace] === 10) {
+  if (board[player1HouseSpace] === 10) {
     console.log(getLuckyHouse());
+  } else if (board[player1HouseSpace] !== 1) {
+    console.log(getBadHouse());
   } else {
     console.log(getHouse());
   }
@@ -87,10 +88,10 @@ function getCandyP1() {
 
 function getCandyP2() {
   player2Candy = player2Candy + board[player2HouseSpace];
-  if (board[player2HouseSpace] !== 1) {
-    console.log(getBadHouse());
-  } else if (board[player2HouseSpace] === 10) {
+  if (board[player2HouseSpace] === 10) {
     console.log(getLuckyHouse());
+  } else if (board[player2HouseSpace] !== 1) {
+    console.log(getBadHouse());
   } else {
     console.log(getHouse());
   }
@@ -98,10 +99,10 @@ function getCandyP2() {
 
 function getCandyP3() {
   player3Candy = player3Candy + board[player3HouseSpace];
-  if (board[player3HouseSpace] !== 1) {
-    console.log(getBadHouse());
-  } else if (board[player3HouseSpace] === 10) {
+  if (board[player3HouseSpace] === 10) {
     console.log(getLuckyHouse());
+  } else if (board[player3HouseSpace] !== 1) {
+    console.log(getBadHouse());
   } else {
     console.log(getHouse());
   }
@@ -109,70 +110,66 @@ function getCandyP3() {
 
 function getCandyP4() {
   player4Candy = player4Candy + board[player4HouseSpace];
-  if (board[player4HouseSpace] !== 1) {
-    console.log(getBadHouse());
-  } else if (board[player4HouseSpace] === 10) {
+  if (board[player4HouseSpace] === 10) {
     console.log(getLuckyHouse());
+  } else if (board[player4HouseSpace] !== 1) {
+    console.log(getBadHouse());
   } else {
     console.log(getHouse());
   }
 }
 function doPlayer1() {
+  rl.question(`${chalk.red(player1Name)}'s TURN! Roll! (PRESS ENTER) `);
   let diceRoll6 = getDiceRoll6();
-
-  rl.question(`${player1Name}'s TURN! Roll! (PRESS ENTER) `);
   console.log("\n");
-  console.log(`You rolled a ${diceRoll6}`);
+  console.log(`You rolled a ${chalk.red(diceRoll6)}`);
 
   updateP1HouseSpace(diceRoll6);
-  console.log(`You're at house ${player1HouseSpace}`);
+  console.log(`You're at house ${chalk.magenta(player1HouseSpace)}`);
 
   getCandyP1();
-  console.log(`You have ${player1Candy} candy total!`);
+  console.log(`You have ${chalk.cyan(player1Candy)} candy total!`);
   console.log("\n");
 }
 
 function doPlayer2() {
+  rl.question(`${chalk.green(player2Name)}'s TURN! Roll! (PRESS ENTER) `);
   let diceRoll6 = getDiceRoll6();
-
-  rl.question(`${player2Name}'s TURN! Roll! (PRESS ENTER) `);
   console.log("\n");
-  console.log(`You rolled a ${diceRoll6}`);
+  console.log(`You rolled a ${chalk.green(diceRoll6)}`);
 
   updateP2HouseSpace(diceRoll6);
-  console.log(`You're at house ${player2HouseSpace}`);
+  console.log(`You're at house ${chalk.magenta(player2HouseSpace)}`);
 
   getCandyP2();
-  console.log(`You have ${player2Candy} candy total!`);
+  console.log(`You have ${chalk.cyan(player2Candy)} candy total!`);
   console.log("\n");
 }
 
 function doPlayer3() {
+  rl.question(`${chalk.yellow(player3Name)}'s TURN! Roll! (PRESS ENTER) `);
   let diceRoll6 = getDiceRoll6();
-
-  rl.question(`${player3Name}'s TURN! Roll! (PRESS ENTER) `);
   console.log("\n");
-  console.log(`You rolled a ${diceRoll6}`);
+  console.log(`You rolled a ${chalk.yellow(diceRoll6)}`);
 
   updateP3HouseSpace(diceRoll6);
-  console.log(`You're at house ${player3HouseSpace}`);
+  console.log(`You're at house ${chalk.magenta(player3HouseSpace)}`);
 
   getCandyP3();
-  console.log(`You have ${player3Candy} candy total!`);
+  console.log(`You have ${chalk.cyan(player3Candy)} candy total!`);
   console.log("\n");
 }
 function doPlayer4() {
+  rl.question(`${chalk.blue(player4Name)}'s TURN! Roll! (PRESS ENTER) `);
   let diceRoll6 = getDiceRoll6();
-
-  rl.question(`${player4Name}'s TURN! Roll! (PRESS ENTER) `);
   console.log("\n");
-  console.log(`You rolled a ${diceRoll6}`);
+  console.log(`You rolled a ${chalk.blue(diceRoll6)}`);
 
   updateP4HouseSpace(diceRoll6);
-  console.log(`You're at house ${player4HouseSpace}`);
+  console.log(`You're at house ${chalk.magenta(player4HouseSpace)}`);
 
   getCandyP4();
-  console.log(`You have ${player4Candy} candy total!`);
+  console.log(`You have ${chalk.cyan(player4Candy)} candy total!`);
   console.log("\n");
 }
 export function roll() {
