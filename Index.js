@@ -26,6 +26,6 @@ greetPlayers();
 console.log("\n");
 giveRulesAndExplainBoard();
 console.log("\n");
-roll();
+await roll();
 console.log(await callEnd());
 announceWinner();

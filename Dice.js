@@ -3,12 +3,12 @@ import chalk from "chalk";
 import { player1Name, player2Name, player3Name, player4Name } from "./index.js";
 import { callboard, getDiceRoll6 } from "./async.js";
 
-let player1HouseSpace = 49;
+let player1HouseSpace = 0;
 let player2HouseSpace = 0;
 let player3HouseSpace = 0;
 let player4HouseSpace = 0;
 
-let player1Candy = 15;
+let player1Candy = 1;
 let player2Candy = 1;
 let player3Candy = 1;
 let player4Candy = 1;
